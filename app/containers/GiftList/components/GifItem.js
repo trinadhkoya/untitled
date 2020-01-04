@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
-import {screenWidth} from '../../../utilities';
+import {StyleSheet, View} from 'react-native';
+import Image from 'react-native-image-progress';
 
 class GifItem extends PureComponent {
   render() {
@@ -10,10 +10,9 @@ class GifItem extends PureComponent {
         <Image
           style={styles.gifImgStyle}
           source={{
-            uri: item.images.preview_webp.url,
+            uri: item.images.fixed_width_small_still.url,
           }}
         />
-        <Text>{item.url}</Text>
       </View>
     );
   }
@@ -25,9 +24,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     margin: 10,
   },
-  gifImgStyle: {width: screenWidth(), height: 100},
+  gifImgStyle: {width: 100, height: 100},
   backgroundContainer: {
-    width: screenWidth(),
+    width: null,
     height: null,
   },
 });

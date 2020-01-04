@@ -16,6 +16,11 @@ const reduxHelper = actionName => {
   });
 };
 
+const localAssets = {
+  fav_img: require('./assets/images/favourited.png'),
+  un_fav_img: require('./assets/images/unfavourited.png'),
+};
+
 function screenHeight() {
   return Dimensions.get('window').height;
 }
@@ -23,6 +28,7 @@ function screenHeight() {
 function screenWidth() {
   return Dimensions.get('window').width;
 }
+
 const color = {
   white: '#ffffff',
   orange: '#ff8800',
@@ -30,4 +36,4 @@ const color = {
   black: '#000000',
 };
 
-export {reduxHelper, screenHeight, screenWidth, color};
+export {reduxHelper, screenHeight, screenWidth, color, localAssets};

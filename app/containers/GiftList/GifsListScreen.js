@@ -6,7 +6,6 @@ import {doFetchGIFs} from '../../network';
 import GifItem from './components/GifItem';
 import Divider from './components/Divider';
 import ProgressBar from './components/ProgressBar';
-import checkInetConnection from '../../HOCs/checkInetConnection';
 import styles from './GiftListScreen.styles';
 
 const pagingData = {};
@@ -14,13 +13,12 @@ const pagingData = {};
 class GifsListScreen extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {limit: 30, offset: 0};
+    this.state = {offset: 0};
   }
 
   componentDidMount(): void {
-    const {limit, offset} = this.state;
+    const {offset} = this.state;
     const {getGIFs} = this.props;
-    pagingData.limit = limit;
     pagingData.offset = offset;
     getGIFs(pagingData, false);
   }
@@ -40,17 +38,13 @@ class GifsListScreen extends PureComponent {
 
   _onEndReached = () => {
     const {isLoading, getGIFs, payload} = this.props;
-    const {limit, offset} = this.state;
-    if (!this.onEndReachedCalledDuringMomentum) {
-      if (isLoading === false && payload.length !== 0) {
-        console.log('Called');
-        getGIFs(pagingData, true);
-        this.setState({
-          offset: offset + 30,
-          limit: limit,
-        });
-      }
-      this.onEndReachedCalledDuringMomentum = true;
+    const {offset} = this.state;
+    if (!isLoading) {
+      pagingData.offset = offset + 25;
+      getGIFs(pagingData, true);
+      this.setState({
+        offset: offset + 25,
+      });
     }
   };
 
@@ -76,8 +70,8 @@ class GifsListScreen extends PureComponent {
           renderItem={this._renderGridItem}
           ItemSeparatorComponent={this._renderItemSeparator}
           extraData={this.state}
-          onEndReachedThreshold={0.7}
-          onMomentumScrollEnd={this._onEndReached}
+          onEndReachedThreshold={20}
+          onEndReached={this._onEndReached}
           ListFooterComponent={this._renderFooter}
         />
       </View>
@@ -120,4 +114,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(checkInetConnection(GifsListScreen));
+)(GifsListScreen);
