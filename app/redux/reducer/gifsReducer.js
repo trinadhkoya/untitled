@@ -22,14 +22,18 @@ const gifsReducer = (state = defaultState, action) => {
           gifs: !_.isEmpty(payload.data)
             ? [...state.gifs, ...payload.data]
             : [],
-          pagination: !_.isEmpty(payload.pagination) ? payload.pagination : null,
+          pagination: !_.isEmpty(payload.pagination)
+            ? payload.pagination
+            : null,
         };
       } else {
         return {
           ...state,
           isLoading: false,
           gifs: !_.isEmpty(payload.data) ? payload.data : [],
-          pagination: !_.isEmpty(payload.pagination) ? payload.pagination : null,
+          pagination: !_.isEmpty(payload.pagination)
+            ? payload.pagination
+            : null,
         };
       }
     case reduxHelper(TYPES.FETCH_GIFS).actionFailure:

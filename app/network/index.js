@@ -11,14 +11,14 @@ import {BASE_URL, TRENDING_HANLDE} from '../constants';
  * @param req
  * @returns {function(...[*]=)}
  */
-const doFetchGIFs = req => async dispatch => {
+const doFetchGIFs = (req, lazyLoad) => async dispatch => {
   dispatch(onRequestGifs());
 
   try {
     await API_GET(BASE_URL, TRENDING_HANLDE, req)
       .then(res => {
         console.log(res);
-        dispatch(onSuccessGIFs(res));
+        dispatch(onSuccessGIFs(res, lazyLoad));
       })
       .catch(err => {
         dispatch(onFailureGIFs(err));

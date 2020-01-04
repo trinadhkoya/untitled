@@ -7,13 +7,14 @@ import GifItem from './components/GifItem';
 import Divider from './components/Divider';
 import ProgressBar from './components/ProgressBar';
 import styles from './GiftListScreen.styles';
-
+import _ from 'lodash';
 const pagingData = {};
 
 class GifsListScreen extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {offset: 0};
+    this.onEndReachedCalledDuringMomentum = true;
   }
 
   componentDidMount(): void {
@@ -36,15 +37,22 @@ class GifsListScreen extends PureComponent {
     }
   };
 
-  _onEndReached = () => {
+  _onEndReached = ({distanceFromEnd}) => {
     const {isLoading, getGIFs, payload} = this.props;
     const {offset} = this.state;
-    if (!isLoading) {
-      pagingData.offset = offset + 25;
-      getGIFs(pagingData, true);
-      this.setState({
-        offset: offset + 25,
-      });
+    if (!this.onEndReachedCalledDuringMomentum) {
+      if (
+        isLoading === false &&
+        payload.length % 25 === 0 &&
+        payload.length !== 0
+      ) {
+        pagingData.offset = offset + 25;
+        getGIFs(pagingData, true);
+        this.setState({
+          offset: offset + 25,
+        });
+      }
+      this.onEndReachedCalledDuringMomentum = true;
     }
   };
 
@@ -66,13 +74,17 @@ class GifsListScreen extends PureComponent {
           contentContainerStyle={{paddingHorizontal: 5}}
           showsVerticalScrollIndicator={false}
           data={payload}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={item => item.id + ''}
           renderItem={this._renderGridItem}
           ItemSeparatorComponent={this._renderItemSeparator}
           extraData={this.state}
-          onEndReachedThreshold={20}
-          onEndReached={this._onEndReached}
+          legacyImplementation={true}
           ListFooterComponent={this._renderFooter}
+          onEndReached={this._onEndReached}
+          onEndReachedThreshold={0.7}
+          onMomentumScrollBegin={() => {
+            this.onEndReachedCalledDuringMomentum = false;
+          }}
         />
       </View>
     );

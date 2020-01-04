@@ -5,9 +5,10 @@ export const onRequestGifs = () => ({
   type: reduxHelper(TYPES.FETCH_GIFS).actionRequest,
 });
 
-export const onSuccessGIFs = data => ({
+export const onSuccessGIFs = (data, lazyLoad) => ({
   type: reduxHelper(TYPES.FETCH_GIFS).actionSuccess,
   payload: data,
+  lazyLoad,
 });
 
 export const onFailureGIFs = error => ({
