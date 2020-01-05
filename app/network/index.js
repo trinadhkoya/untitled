@@ -9,6 +9,7 @@ import {BASE_URL, TRENDING_HANLDE} from '../constants';
 /**
  * List out all the trending API's
  * @param req
+ * @param lazyLoad
  * @returns {function(...[*]=)}
  */
 const doFetchGIFs = (req, lazyLoad) => async dispatch => {

@@ -8,7 +8,7 @@
 
 import React from 'react';
 import {Provider} from 'react-redux';
-import GifsListScreen from './app/containers/GiftList/GifsListScreen';
+import GifsListScreen from './app/containers/GiftList/GifsListContainer';
 import {applyMiddleware, createStore} from 'redux';
 import thunk from 'redux-thunk';
 import appReducer from './app/redux/reducer';

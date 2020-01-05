@@ -19,9 +19,7 @@ const gifsReducer = (state = defaultState, action) => {
         return {
           ...state,
           isLoading: false,
-          gifs: !_.isEmpty(payload.data)
-            ? [...state.gifs, ...payload.data]
-            : [],
+          gifs: !_.isEmpty(payload.data) ? [...state.gifs, ...payload.data] : [],
           pagination: !_.isEmpty(payload.pagination)
             ? payload.pagination
             : null,

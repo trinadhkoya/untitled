@@ -19,6 +19,7 @@ const API_GET = (type, api_name, parameters) => {
     str = `${str}&${theKey}=${parameters[theKey]}`;
   }
   str = `${str}&api_key=${GIFFY_API_KEY}`;
+  str = `${str}&limit=${25}`;
   str = str.toString().substr(1);
 
   return fetch(BASE_URL + api_name + '?' + str, {method: 'GET'})

@@ -8,7 +8,7 @@ export const onRequestGifs = () => ({
 export const onSuccessGIFs = (data, lazyLoad) => ({
   type: reduxHelper(TYPES.FETCH_GIFS).actionSuccess,
   payload: data,
-  lazyLoad,
+  lazyLoad:lazyLoad,
 });
 
 export const onFailureGIFs = error => ({
