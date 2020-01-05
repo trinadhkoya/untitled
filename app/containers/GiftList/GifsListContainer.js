@@ -61,10 +61,7 @@ class GifsListContainer extends PureComponent {
     };
 
     _renderGridItem = (item) => {
-
         const isSelectedUser = this.state.selectedItem === item.id;
-        const viewStyle = isSelectedUser ? styles.selectedButton : styles.normalButton;
-
         return(
             <TouchableOpacity  onPress={() => this.onPressAction(item)} >
                <GifItem item={item} onPressItem={null} isSelectedUser={isSelectedUser}  />
@@ -74,7 +71,6 @@ class GifsListContainer extends PureComponent {
 
     render() {
         const {payload} = this.props;
-
         return (
             <View style={styles.mainContainer}>
                 <FlatList
